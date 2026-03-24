@@ -53,31 +53,29 @@ export const HomePage = () => {
   return (
     <div className="overflow-hidden">
       {/* ===== Contact Bar ===== */}
-      <div className="bg-gray-900 text-gray-300 text-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-2">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
+      <div className="bg-gray-900 text-gray-300 text-xs sm:text-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-x-4 sm:gap-x-6">
             <a href="tel:+74911234567" className="inline-flex items-center gap-1.5 hover:text-white transition-colors">
-              <Phone className="w-3.5 h-3.5" />
-              +7 (491) 123-45-67
+              <Phone className="w-3.5 h-3.5 shrink-0" />
+              <span className="hidden sm:inline">+7 (491) 123-45-67</span>
+              <span className="sm:hidden">Звонок</span>
             </a>
-            <a href="tel:+79001234567" className="inline-flex items-center gap-1.5 hover:text-white transition-colors">
-              <Phone className="w-3.5 h-3.5" />
-              +7 (900) 123-45-67
-            </a>
-            <a href="mailto:info@dairy-ryazan.ru" className="inline-flex items-center gap-1.5 hover:text-white transition-colors">
+            <a href="mailto:info@dairy-ryazan.ru" className="hidden sm:inline-flex items-center gap-1.5 hover:text-white transition-colors">
               <Mail className="w-3.5 h-3.5" />
               info@dairy-ryazan.ru
             </a>
           </div>
           <div className="inline-flex items-center gap-1.5 text-gray-400">
-            <MapPin className="w-3.5 h-3.5" />
-            г. Рязань, ул. Молочная, 1
+            <MapPin className="w-3.5 h-3.5 shrink-0" />
+            <span className="hidden sm:inline">г. Рязань, ул. Молочная, 1</span>
+            <span className="sm:hidden">Рязань</span>
           </div>
         </div>
       </div>
 
       {/* ===== Hero ===== */}
-      <section className="relative min-h-[600px] lg:min-h-[700px] flex items-center">
+      <section className="relative min-h-[480px] sm:min-h-[560px] lg:min-h-[700px] flex items-center">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -87,35 +85,35 @@ export const HomePage = () => {
         />
         <div className="absolute inset-0 gradient-overlay" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 sm:py-16 lg:py-20">
           <div className="max-w-2xl">
             <div className="animate-fade-in-up">
-              <span className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
-                <Truck className="w-4 h-4" />
+              <span className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6">
+                <Truck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 Бесплатная доставка от 1000 ₽
               </span>
             </div>
 
-            <h1 className="animate-fade-in-up delay-100 animate-hidden text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight">
+            <h1 className="animate-fade-in-up delay-100 animate-hidden text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight">
               Натуральная молочная <br />
               <span className="text-green-300">продукция из Рязани</span>
             </h1>
 
-            <p className="animate-fade-in-up delay-200 animate-hidden mt-6 text-lg lg:text-xl text-white/85 leading-relaxed max-w-lg">
+            <p className="animate-fade-in-up delay-200 animate-hidden mt-4 sm:mt-6 text-base sm:text-lg lg:text-xl text-white/85 leading-relaxed max-w-lg">
               Свежие фермерские продукты каждый день. Качество, проверенное поколениями рязанских фермеров.
             </p>
 
-            <div className="animate-fade-in-up delay-300 animate-hidden mt-10 flex flex-wrap gap-4">
+            <div className="animate-fade-in-up delay-300 animate-hidden mt-6 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Link
                 to="/catalog"
-                className="inline-flex items-center gap-2 bg-white text-gray-900 px-7 py-3.5 rounded-xl font-bold text-lg hover:bg-green-50 transition-all hover:scale-105 shadow-lg"
+                className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl font-bold text-base sm:text-lg hover:bg-green-50 transition-all hover:scale-105 shadow-lg btn-press"
               >
                 В каталог
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <a
                 href="tel:+74911234567"
-                className="inline-flex items-center gap-2 border-2 border-white/40 text-white px-7 py-3.5 rounded-xl font-bold text-lg hover:bg-white/10 transition-all backdrop-blur-sm"
+                className="inline-flex items-center justify-center gap-2 border-2 border-white/40 text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl font-bold text-base sm:text-lg hover:bg-white/10 transition-all backdrop-blur-sm btn-press"
               >
                 <Phone className="w-5 h-5" />
                 Позвонить
@@ -126,51 +124,51 @@ export const HomePage = () => {
       </section>
 
       {/* ===== О компании ===== */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-12 sm:py-16 lg:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
             <Section animation="animate-slide-left">
               <div className="relative">
                 <div className="rounded-2xl overflow-hidden shadow-2xl img-zoom">
                   <img
                     src="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=800&q=80"
                     alt="Молочная ферма"
-                    className="w-full h-[400px] object-cover"
+                    className="w-full h-[250px] sm:h-[350px] lg:h-[400px] object-cover"
                   />
                 </div>
-                <div className="absolute -bottom-6 -right-6 bg-primary text-white rounded-2xl p-6 shadow-xl hidden sm:block">
-                  <div className="text-4xl font-extrabold">15+</div>
-                  <div className="text-sm text-green-100 mt-1">лет на рынке</div>
+                <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 bg-primary text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-xl hidden sm:block">
+                  <div className="text-2xl sm:text-4xl font-extrabold">15+</div>
+                  <div className="text-xs sm:text-sm text-green-100 mt-1">лет на рынке</div>
                 </div>
               </div>
             </Section>
 
             <Section animation="animate-slide-right">
               <span className="text-primary font-semibold text-sm uppercase tracking-widest">О компании</span>
-              <h2 className="mt-3 text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">
+              <h2 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">
                 Молочная компания <br />Рязани
               </h2>
-              <p className="mt-6 text-gray-600 leading-relaxed text-lg">
+              <p className="mt-4 sm:mt-6 text-gray-600 leading-relaxed text-base sm:text-lg">
                 Мы — семейная ферма, которая уже более 15 лет производит натуральную молочную продукцию
                 в Рязанской области. Наши коровы пасутся на экологически чистых пастбищах,
                 а продукция проходит строгий контроль качества на каждом этапе.
               </p>
-              <p className="mt-4 text-gray-600 leading-relaxed text-lg">
+              <p className="mt-3 sm:mt-4 text-gray-600 leading-relaxed text-base sm:text-lg">
                 Мы гордимся тем, что каждый наш продукт — от молока до сыра —
                 сделан с любовью и заботой о вашем здоровье.
               </p>
-              <div className="mt-8 grid grid-cols-3 gap-6">
+              <div className="mt-6 sm:mt-8 grid grid-cols-3 gap-4 sm:gap-6">
                 <div>
-                  <div className="text-3xl font-extrabold text-primary">50+</div>
-                  <div className="text-sm text-gray-500 mt-1">продуктов</div>
+                  <div className="text-2xl sm:text-3xl font-extrabold text-primary">50+</div>
+                  <div className="text-xs sm:text-sm text-gray-500 mt-1">продуктов</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-extrabold text-primary">2000+</div>
-                  <div className="text-sm text-gray-500 mt-1">клиентов</div>
+                  <div className="text-2xl sm:text-3xl font-extrabold text-primary">2000+</div>
+                  <div className="text-xs sm:text-sm text-gray-500 mt-1">клиентов</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-extrabold text-primary">100%</div>
-                  <div className="text-sm text-gray-500 mt-1">натурально</div>
+                  <div className="text-2xl sm:text-3xl font-extrabold text-primary">100%</div>
+                  <div className="text-xs sm:text-sm text-gray-500 mt-1">натурально</div>
                 </div>
               </div>
             </Section>
@@ -179,12 +177,12 @@ export const HomePage = () => {
       </section>
 
       {/* ===== Преимущества ===== */}
-      <section className="py-20 lg:py-28 bg-gray-50">
+      <section className="py-12 sm:py-16 lg:py-28 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Section>
-            <div className="text-center mb-16">
+            <div className="text-center mb-8 sm:mb-12 lg:mb-16">
               <span className="text-primary font-semibold text-sm uppercase tracking-widest">Преимущества</span>
-              <h2 className="mt-3 text-3xl lg:text-4xl font-extrabold text-gray-900">
+              <h2 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900">
                 Почему выбирают нас
               </h2>
             </div>
@@ -232,13 +230,13 @@ export const HomePage = () => {
       </section>
 
       {/* ===== Популярные товары ===== */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-12 sm:py-16 lg:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Section>
-            <div className="flex items-end justify-between mb-12">
+            <div className="flex items-end justify-between mb-8 sm:mb-12">
               <div>
                 <span className="text-primary font-semibold text-sm uppercase tracking-widest">Каталог</span>
-                <h2 className="mt-3 text-3xl lg:text-4xl font-extrabold text-gray-900">
+                <h2 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900">
                   Популярные товары
                 </h2>
               </div>
@@ -257,7 +255,7 @@ export const HomePage = () => {
               <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
             </div>
           ) : products.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
               {products.map((product, idx) => (
                 <Section key={product.id} animation="animate-fade-in-up" className={`delay-${(idx + 1) * 100}`}>
                   <Link to={`/catalog/${product.id}`} className="group block">
@@ -324,7 +322,7 @@ export const HomePage = () => {
       </section>
 
       {/* ===== CTA ===== */}
-      <section className="relative py-20 lg:py-24">
+      <section className="relative py-12 sm:py-16 lg:py-24">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -335,7 +333,7 @@ export const HomePage = () => {
         <div className="absolute inset-0 gradient-overlay" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Section>
-            <h2 className="text-3xl lg:text-5xl font-extrabold text-white leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-white leading-tight">
               Попробуйте настоящий вкус <br className="hidden sm:block" />
               рязанской молочной продукции
             </h2>
@@ -343,17 +341,17 @@ export const HomePage = () => {
               Закажите свежие продукты с доставкой прямо к вашему столу.
               Бесплатная доставка при заказе от 1000 ₽.
             </p>
-            <div className="mt-10 flex flex-wrap justify-center gap-4">
+            <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
               <Link
                 to="/catalog"
-                className="inline-flex items-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-xl font-bold text-lg hover:bg-green-50 transition-all hover:scale-105 shadow-lg"
+                className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-green-50 transition-all hover:scale-105 shadow-lg btn-press"
               >
                 Перейти в каталог
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <a
                 href="tel:+74911234567"
-                className="inline-flex items-center gap-2 border-2 border-white/40 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/10 transition-all backdrop-blur-sm"
+                className="inline-flex items-center justify-center gap-2 border-2 border-white/40 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-white/10 transition-all backdrop-blur-sm btn-press"
               >
                 <Phone className="w-5 h-5" />
                 +7 (491) 123-45-67

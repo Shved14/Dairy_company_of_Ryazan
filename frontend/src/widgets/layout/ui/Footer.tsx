@@ -10,21 +10,21 @@ export const Footer = () => {
 
   return (
     <footer className="bg-gray-900 text-gray-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center gap-2 text-white font-bold text-xl mb-4">
-              <Milk className="w-7 h-7 text-primary" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
+          <div className="col-span-2 md:col-span-2 lg:col-span-1">
+            <Link to="/" className="flex items-center gap-2 text-white font-bold text-lg sm:text-xl mb-3 sm:mb-4">
+              <Milk className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
               <span>Молочная компания</span>
             </Link>
-            <p className="text-sm text-gray-400 leading-relaxed">
+            <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
               Натуральная молочная продукция из Рязани. Свежесть и качество каждый день с 2009 года.
             </p>
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-5 text-sm uppercase tracking-wider">Навигация</h3>
-            <ul className="space-y-3 text-sm">
+            <h3 className="text-white font-semibold mb-3 sm:mb-5 text-xs sm:text-sm uppercase tracking-wider">Навигация</h3>
+            <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
               <li>
                 <Link to="/" className="hover:text-white hover:pl-1 transition-all">Главная</Link>
               </li>
@@ -51,8 +51,8 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-5 text-sm uppercase tracking-wider">Контакты</h3>
-            <ul className="space-y-3 text-sm">
+            <h3 className="text-white font-semibold mb-3 sm:mb-5 text-xs sm:text-sm uppercase tracking-wider">Контакты</h3>
+            <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
               <li>
                 <a href="tel:+74911234567" className="inline-flex items-center gap-2 hover:text-white transition-colors">
                   <Phone className="w-4 h-4 text-primary" />
@@ -75,8 +75,8 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-5 text-sm uppercase tracking-wider">Адрес</h3>
-            <ul className="space-y-3 text-sm">
+            <h3 className="text-white font-semibold mb-3 sm:mb-5 text-xs sm:text-sm uppercase tracking-wider">Адрес</h3>
+            <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
               <li className="inline-flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                 <span>г. Рязань, ул. Молочная, д. 1</span>
@@ -89,7 +89,7 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+        <div className="border-t border-gray-800 mt-8 sm:mt-12 pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-xs sm:text-sm text-gray-500">
           <span>&copy; {new Date().getFullYear()} Молочная компания Рязани. Все права защищены.</span>
           <span>Сделано с заботой о качестве</span>
         </div>

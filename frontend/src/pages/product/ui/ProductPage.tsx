@@ -115,23 +115,23 @@ export const ProductPage = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
       {/* Back button */}
       <Link
         to="/catalog"
-        className="animate-fade-in inline-flex items-center gap-2 text-gray-500 hover:text-primary mb-8 transition-colors group"
+        className="animate-fade-in inline-flex items-center gap-2 text-sm text-gray-500 hover:text-primary mb-5 sm:mb-8 transition-colors group"
       >
         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
         Назад в каталог
       </Link>
 
       {/* Main content */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 lg:gap-16">
         {/* ===== Photo ===== */}
         <div className="animate-slide-left">
           <div
             ref={imgRef}
-            className="relative aspect-square bg-gray-50 rounded-3xl overflow-hidden shadow-lg cursor-zoom-in group"
+            className="relative aspect-square bg-gray-50 rounded-2xl sm:rounded-3xl overflow-hidden shadow-lg cursor-zoom-in group"
             onMouseMove={handleMouseMove}
             onClick={() => product.image && setZoomed(true)}
           >
@@ -157,7 +157,7 @@ export const ProductPage = () => {
             )}
 
             {/* Category badge */}
-            <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-primary text-sm font-bold px-4 py-1.5 rounded-full shadow-sm">
+            <span className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-white/90 backdrop-blur-sm text-primary text-xs sm:text-sm font-bold px-3 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-sm">
               {product.category}
             </span>
           </div>
@@ -165,107 +165,107 @@ export const ProductPage = () => {
 
         {/* ===== Info ===== */}
         <div className="animate-slide-right">
-          <h1 className="text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">
             {product.name}
           </h1>
 
-          <div className="mt-4 flex items-baseline gap-3">
-            <span className="text-4xl lg:text-5xl font-extrabold text-primary">
+          <div className="mt-3 sm:mt-4 flex items-baseline gap-2 sm:gap-3">
+            <span className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-primary">
               {Number(product.price).toFixed(0)} ₽
             </span>
             {product.weight && (
-              <span className="text-lg text-gray-400">/ {product.weight} г</span>
+              <span className="text-sm sm:text-lg text-gray-400">/ {product.weight} г</span>
             )}
           </div>
 
           {/* Action buttons */}
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-5 sm:mt-8 grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-3">
             <a
               href="tel:+74911234567"
-              className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-primary-dark transition-all hover:scale-[1.02] shadow-md btn-press"
+              className="inline-flex items-center justify-center gap-2 bg-primary text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-semibold hover:bg-primary-dark transition-all hover:scale-[1.02] shadow-md btn-press"
             >
-              <Phone className="w-5 h-5" />
+              <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
               Позвонить
             </a>
             <a
               href={`https://wa.me/79001234567?text=${encodeURIComponent(`Здравствуйте! Интересует товар: ${product.name} (${Number(product.price).toFixed(0)} ₽)`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600 transition-all hover:scale-[1.02] shadow-md btn-press"
+              className="inline-flex items-center justify-center gap-2 bg-green-500 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-semibold hover:bg-green-600 transition-all hover:scale-[1.02] shadow-md btn-press"
             >
-              <MessageCircle className="w-5 h-5" />
+              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
               WhatsApp
             </a>
             <button
               onClick={handleToggleFavorite}
-              className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all hover:scale-[1.02] border-2 ${isFav
+              className={`col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-semibold transition-all hover:scale-[1.02] border-2 ${isFav
                 ? 'bg-red-50 border-red-300 text-red-600'
                 : 'bg-white border-gray-200 text-gray-700 hover:border-red-300 hover:text-red-500'
                 }`}
             >
-              <Heart className={`w-5 h-5 ${isFav ? 'fill-current' : ''}`} />
+              <Heart className={`w-4 h-4 sm:w-5 sm:h-5 ${isFav ? 'fill-current' : ''}`} />
               {isFav ? 'В избранном' : 'В избранное'}
             </button>
           </div>
 
           {/* Description */}
           {product.description && (
-            <div className="mt-8">
-              <h2 className="text-lg font-bold text-gray-900 mb-3">Описание</h2>
+            <div className="mt-6 sm:mt-8">
+              <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-2 sm:mb-3">Описание</h2>
               <p className="text-gray-600 leading-relaxed text-[15px]">{product.description}</p>
             </div>
           )}
 
           {/* Composition placeholder */}
-          <div className="mt-8">
-            <h2 className="text-lg font-bold text-gray-900 mb-3">Состав</h2>
+          <div className="mt-6 sm:mt-8">
+            <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-2 sm:mb-3">Состав</h2>
             <p className="text-gray-600 leading-relaxed text-[15px]">
               Натуральное цельное молоко, закваска. Без консервантов, ароматизаторов и ГМО.
             </p>
           </div>
 
           {/* Characteristics */}
-          <div className="mt-8">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">Характеристики</h2>
-            <div className="grid grid-cols-2 gap-3">
+          <div className="mt-6 sm:mt-8">
+            <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Характеристики</h2>
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
               {product.fat !== null && (
-                <div className="flex items-center gap-3 bg-gray-50 px-4 py-3.5 rounded-xl">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
-                    <Droplets className="w-5 h-5 text-blue-600" />
+                <div className="flex items-center gap-2 sm:gap-3 bg-gray-50 px-3 sm:px-4 py-2.5 sm:py-3.5 rounded-xl">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
+                    <Droplets className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
                   </div>
                   <div>
-                    <div className="text-xs text-gray-400">Жирность</div>
-                    <div className="text-sm font-bold text-gray-900">{product.fat}%</div>
+                    <div className="text-[10px] sm:text-xs text-gray-400">Жирность</div>
+                    <div className="text-xs sm:text-sm font-bold text-gray-900">{product.fat}%</div>
                   </div>
                 </div>
               )}
               {product.weight !== null && (
-                <div className="flex items-center gap-3 bg-gray-50 px-4 py-3.5 rounded-xl">
-                  <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center shrink-0">
-                    <Weight className="w-5 h-5 text-amber-600" />
+                <div className="flex items-center gap-2 sm:gap-3 bg-gray-50 px-3 sm:px-4 py-2.5 sm:py-3.5 rounded-xl">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-amber-100 rounded-lg flex items-center justify-center shrink-0">
+                    <Weight className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600" />
                   </div>
                   <div>
-                    <div className="text-xs text-gray-400">Вес</div>
-                    <div className="text-sm font-bold text-gray-900">{product.weight} г</div>
+                    <div className="text-[10px] sm:text-xs text-gray-400">Вес</div>
+                    <div className="text-xs sm:text-sm font-bold text-gray-900">{product.weight} г</div>
                   </div>
                 </div>
               )}
-              <div className="flex items-center gap-3 bg-gray-50 px-4 py-3.5 rounded-xl">
-                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center shrink-0">
-                  <Tag className="w-5 h-5 text-primary" />
+              <div className="flex items-center gap-2 sm:gap-3 bg-gray-50 px-3 sm:px-4 py-2.5 sm:py-3.5 rounded-xl">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-lg flex items-center justify-center shrink-0">
+                  <Tag className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                 </div>
                 <div>
-                  <div className="text-xs text-gray-400">Категория</div>
-                  <div className="text-sm font-bold text-gray-900">{product.category}</div>
+                  <div className="text-[10px] sm:text-xs text-gray-400">Категория</div>
+                  <div className="text-xs sm:text-sm font-bold text-gray-900">{product.category}</div>
                 </div>
               </div>
-              <div className="flex items-center gap-3 bg-gray-50 px-4 py-3.5 rounded-xl">
-                <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center shrink-0">
-                  <Calendar className="w-5 h-5 text-purple-600" />
+              <div className="flex items-center gap-2 sm:gap-3 bg-gray-50 px-3 sm:px-4 py-2.5 sm:py-3.5 rounded-xl">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-purple-100 rounded-lg flex items-center justify-center shrink-0">
+                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
                 </div>
                 <div>
-                  <div className="text-xs text-gray-400">Срок хранения</div>
-                  <div className="text-sm font-bold text-gray-900">7 дней</div>
+                  <div className="text-[10px] sm:text-xs text-gray-400">Срок хранения</div>
+                  <div className="text-xs sm:text-sm font-bold text-gray-900">7 дней</div>
                 </div>
               </div>
             </div>
@@ -275,12 +275,12 @@ export const ProductPage = () => {
 
       {/* ===== Related products ===== */}
       {related.length > 0 && (
-        <section className="mt-20 lg:mt-28">
+        <section className="mt-12 sm:mt-16 lg:mt-28">
           <Section>
-            <div className="flex items-end justify-between mb-10">
+            <div className="flex items-end justify-between mb-6 sm:mb-10">
               <div>
                 <span className="text-primary font-semibold text-sm uppercase tracking-widest">Рекомендуем</span>
-                <h2 className="mt-2 text-2xl lg:text-3xl font-extrabold text-gray-900">Ещё товары</h2>
+                <h2 className="mt-2 text-xl sm:text-2xl lg:text-3xl font-extrabold text-gray-900">Ещё товары</h2>
               </div>
               <Link
                 to="/catalog"
@@ -292,11 +292,11 @@ export const ProductPage = () => {
             </div>
           </Section>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
             {related.map((item, idx) => (
               <Section key={item.id} animation="animate-scale-in" className={`delay-${(idx + 1) * 100}`}>
                 <Link to={`/catalog/${item.id}`} className="group block">
-                  <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden card-hover">
+                  <div className="bg-white rounded-xl sm:rounded-2xl border border-gray-100 overflow-hidden card-hover">
                     <div className="aspect-[4/3] bg-gray-50 img-zoom relative">
                       {item.image ? (
                         <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
@@ -309,12 +309,12 @@ export const ProductPage = () => {
                         {item.category}
                       </span>
                     </div>
-                    <div className="p-4">
-                      <h3 className="font-bold text-gray-900 group-hover:text-primary transition-colors line-clamp-1 text-sm lg:text-base">
+                    <div className="p-3 sm:p-4">
+                      <h3 className="font-bold text-gray-900 group-hover:text-primary transition-colors line-clamp-1 text-xs sm:text-sm lg:text-base">
                         {item.name}
                       </h3>
-                      <div className="mt-2 flex items-center justify-between">
-                        <span className="text-lg font-extrabold text-gray-900">
+                      <div className="mt-1.5 sm:mt-2 flex items-center justify-between">
+                        <span className="text-base sm:text-lg font-extrabold text-gray-900">
                           {Number(item.price).toFixed(0)} ₽
                         </span>
                         <span className="inline-flex items-center gap-1 text-primary text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
