@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   ArrowRight,
   Phone,
@@ -10,9 +10,11 @@ import {
   Truck,
   ShieldCheck,
   Clock,
+  Heart,
 } from 'lucide-react';
 import { productApi } from '@/entities/product';
 import { useInView } from '@/shared/hooks/useInView';
+import { useFavorites } from '@/shared/hooks/useFavorites';
 import type { Product } from '@/shared/types';
 
 const Section = ({
@@ -35,6 +37,14 @@ const Section = ({
 export const HomePage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
+  const navigate = useNavigate();
+  const { toggle: toggleFavorite, has: isFav } = useFavorites();
+
+  const handleToggleFavorite = (e: React.MouseEvent, id: number) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFavorite(id);
+  };
 
   useEffect(() => {
     const load = async () => {
@@ -258,9 +268,12 @@ export const HomePage = () => {
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
               {products.map((product, idx) => (
                 <Section key={product.id} animation="animate-fade-in-up" className={`delay-${(idx + 1) * 100}`}>
-                  <Link to={`/catalog/${product.id}`} className="group block">
-                    <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden card-hover">
-                      <div className="aspect-[4/3] bg-gray-100 img-zoom">
+                  <div
+                    onClick={() => navigate(`/catalog/${product.id}`)}
+                    className="group block cursor-pointer"
+                  >
+                    <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-gray-200">
+                      <div className="relative aspect-[4/3] bg-gray-100 img-zoom">
                         {product.image ? (
                           <img
                             src={product.image}
@@ -275,6 +288,16 @@ export const HomePage = () => {
                             </div>
                           </div>
                         )}
+                        {/* Fav button */}
+                        <button
+                          onClick={(e) => handleToggleFavorite(e, product.id)}
+                          className={`absolute top-2 right-2 sm:top-3 sm:right-3 p-2 sm:p-2.5 rounded-full shadow-md transition-all duration-300 ${isFav(product.id)
+                            ? 'bg-red-500 text-white scale-110'
+                            : 'bg-white/90 text-gray-500 sm:opacity-0 sm:group-hover:opacity-100 hover:bg-red-50 hover:text-red-500'
+                            }`}
+                        >
+                          <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isFav(product.id) ? 'fill-current' : ''}`} />
+                        </button>
                       </div>
                       <div className="p-5">
                         <span className="text-xs font-semibold text-primary/70 uppercase tracking-wider">
@@ -296,7 +319,7 @@ export const HomePage = () => {
                         </div>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 </Section>
               ))}
             </div>

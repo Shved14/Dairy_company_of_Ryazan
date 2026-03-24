@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   Search,
   Package,
@@ -8,7 +8,6 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
-  Eye,
 } from 'lucide-react';
 import { productApi } from '@/entities/product';
 import { useDebounce } from '@/shared/hooks/useDebounce';
@@ -42,6 +41,7 @@ export const CatalogPage = () => {
   const [page, setPage] = useState(1);
   const { toggle: toggleFavorite, has: isFav } = useFavorites();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate();
 
   const debouncedSearch = useDebounce(search, 400);
 
@@ -258,7 +258,10 @@ export const CatalogPage = () => {
               <div className="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
                 {products.map((product, idx) => (
                   <AnimatedCard key={product.id} index={idx}>
-                    <div className="group bg-white rounded-xl sm:rounded-2xl border border-gray-100 overflow-hidden card-hover h-full flex flex-col">
+                    <div
+                      onClick={() => navigate(`/catalog/${product.id}`)}
+                      className="group bg-white rounded-xl sm:rounded-2xl border border-gray-100 overflow-hidden h-full flex flex-col cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-gray-200"
+                    >
                       {/* Image */}
                       <div className="relative aspect-[4/3] bg-gray-50 img-zoom">
                         {product.image ? (
@@ -300,23 +303,13 @@ export const CatalogPage = () => {
                           <p className="mt-1 text-xs sm:text-sm text-gray-400 line-clamp-2 hidden sm:block">{product.description}</p>
                         )}
 
-                        <div className="mt-auto pt-2 sm:pt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                          <div>
-                            <span className="text-lg sm:text-2xl font-extrabold text-gray-900">
-                              {Number(product.price).toFixed(0)} ₽
-                            </span>
-                            {product.weight && (
-                              <span className="text-[10px] sm:text-xs text-gray-400 ml-1">/ {product.weight} г</span>
-                            )}
-                          </div>
-                          <Link
-                            to={`/catalog/${product.id}`}
-                            className="inline-flex items-center justify-center gap-1.5 bg-primary text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold hover:bg-primary-dark transition-colors btn-press"
-                          >
-                            <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                            <span className="hidden sm:inline">Подробнее</span>
-                            <span className="sm:hidden">Ещё</span>
-                          </Link>
+                        <div className="mt-auto pt-2 sm:pt-4">
+                          <span className="text-lg sm:text-2xl font-extrabold text-gray-900">
+                            {Number(product.price).toFixed(0)} ₽
+                          </span>
+                          {product.weight && (
+                            <span className="text-[10px] sm:text-xs text-gray-400 ml-1">/ {product.weight} г</span>
+                          )}
                         </div>
                       </div>
                     </div>
