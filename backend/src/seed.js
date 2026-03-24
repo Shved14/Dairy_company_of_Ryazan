@@ -122,19 +122,10 @@ const seed = async () => {
     console.log('✅ Модели синхронизированы');
 
     // Create admin
-    const existingAdmin = await Admin.findOne({ where: { login: 'mihail' } });
-    if (existingAdmin) {
-      if (existingAdmin.role !== 'SUPER_ADMIN') {
-        existingAdmin.role = 'SUPER_ADMIN';
-        await existingAdmin.save({ hooks: false });
-        console.log('✅ Админ mihail обновлён до SUPER_ADMIN');
-      } else {
-        console.log('⚠️  Админ mihail (SUPER_ADMIN) уже существует, пропускаю');
-      }
-    } else {
-      await Admin.create({ login: 'mihail', password: 'developer', role: 'SUPER_ADMIN' });
-      console.log('✅ Админ создан: mihail / developer (SUPER_ADMIN)');
-    }
+    // Clear all admins and create only misha
+    await Admin.destroy({ where: {}, truncate: true, cascade: true });
+    await Admin.create({ login: 'misha', password: 'developer', role: 'SUPER_ADMIN' });
+    console.log('✅ Админ создан: misha / developer (SUPER_ADMIN)');
 
     // Create products
     const existingCount = await Product.count();

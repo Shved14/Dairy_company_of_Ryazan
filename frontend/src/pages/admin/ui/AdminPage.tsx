@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import {
   Plus, Pencil, Trash2, X, LogOut, Search,
@@ -185,9 +186,10 @@ export const AdminPage = () => {
     setAdminError(''); setAdminSuccess(''); setAdminSaving(true);
     try {
       await adminApi.createUser(adminLogin, adminPassword);
-      setAdminSuccess(`Администратор «${adminLogin}» создан`);
+      showToast(`Администратор «${adminLogin}» создан`, 'ok');
       setAdminLogin(''); setAdminPassword('');
       fetchAdminUsers();
+      setShowAdminModal(false);
     } catch {
       setAdminError('Ошибка создания администратора');
     } finally { setAdminSaving(false); }
@@ -485,7 +487,7 @@ export const AdminPage = () => {
       </div>
 
       {/* ===== Delete Admin Confirmation ===== */}
-      {deleteAdminConfirm !== null && (
+      {deleteAdminConfirm !== null && createPortal(
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setDeleteAdminConfirm(null)} />
           <div className="relative bg-white rounded-2xl w-full max-w-sm shadow-2xl animate-scale-in p-6 text-center">
@@ -508,13 +510,13 @@ export const AdminPage = () => {
             </div>
           </div>
         </div>
-      )}
+        , document.body)}
 
       {/* ===== Product Modal ===== */}
-      {showProductModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowProductModal(false)} />
-          <div className="relative bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl animate-scale-in">
+      {showProductModal && createPortal(
+        <>
+          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm" onClick={() => setShowProductModal(false)} />
+          <div className="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg max-h-[90vh] overflow-y-auto bg-white rounded-2xl shadow-2xl animate-scale-in mx-4" style={{ width: 'calc(100% - 2rem)' }}>
             <div className="h-1.5 bg-gradient-to-r from-primary to-emerald-400" />
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
@@ -581,11 +583,11 @@ export const AdminPage = () => {
               </form>
             </div>
           </div>
-        </div>
-      )}
+        </>
+        , document.body)}
 
       {/* ===== Delete Confirmation ===== */}
-      {showDeleteConfirm !== null && (
+      {showDeleteConfirm !== null && createPortal(
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowDeleteConfirm(null)} />
           <div className="relative bg-white rounded-2xl w-full max-w-sm shadow-2xl animate-scale-in p-6 text-center">
@@ -608,15 +610,15 @@ export const AdminPage = () => {
             </div>
           </div>
         </div>
-      )}
+        , document.body)}
 
       {/* ===== Admin Creation Modal ===== */}
-      {showAdminModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowAdminModal(false)} />
-          <div className="relative bg-white rounded-2xl w-full max-w-md shadow-2xl animate-scale-in overflow-hidden">
+      {showAdminModal && createPortal(
+        <>
+          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm" onClick={() => setShowAdminModal(false)} />
+          <div className="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md max-h-[90vh] overflow-hidden bg-white rounded-2xl shadow-2xl animate-scale-in mx-4" style={{ width: 'calc(100% - 2rem)' }}>
             <div className="h-1.5 bg-gradient-to-r from-purple-500 to-violet-500" />
-            <div className="p-6">
+            <div className="p-6 overflow-y-auto max-h-[calc(90vh-6px)]">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
@@ -663,8 +665,8 @@ export const AdminPage = () => {
               </form>
             </div>
           </div>
-        </div>
-      )}
+        </>
+        , document.body)}
     </div>
   );
 };
