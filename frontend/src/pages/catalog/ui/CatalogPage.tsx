@@ -15,6 +15,7 @@ import { useDebounce } from '@/shared/hooks/useDebounce';
 import { useInView } from '@/shared/hooks/useInView';
 import { useFavorites } from '@/shared/hooks/useFavorites';
 import type { Product } from '@/shared/types';
+import { SkeletonCard } from '@/shared/ui/Skeleton';
 
 const CATEGORIES = ['Все', 'Молоко', 'Кефир', 'Сметана', 'Творог', 'Масло', 'Сыр', 'Йогурт'];
 
@@ -233,8 +234,10 @@ export const CatalogPage = () => {
           )}
 
           {loading ? (
-            <div className="flex justify-center py-24">
-              <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <SkeletonCard key={i} />
+              ))}
             </div>
           ) : products.length === 0 ? (
             <div className="text-center py-24">
@@ -308,7 +311,7 @@ export const CatalogPage = () => {
                           </div>
                           <Link
                             to={`/catalog/${product.id}`}
-                            className="inline-flex items-center gap-1.5 bg-primary text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-primary-dark transition-colors"
+                            className="inline-flex items-center gap-1.5 bg-primary text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-primary-dark transition-colors btn-press"
                           >
                             <Eye className="w-4 h-4" />
                             Подробнее

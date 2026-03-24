@@ -18,6 +18,7 @@ import { productApi } from '@/entities/product';
 import { useInView } from '@/shared/hooks/useInView';
 import { useFavorites } from '@/shared/hooks/useFavorites';
 import type { Product } from '@/shared/types';
+import { SkeletonProductDetail } from '@/shared/ui/Skeleton';
 
 const Section = ({
   children,
@@ -89,8 +90,9 @@ export const ProductPage = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center py-32">
-        <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+        <div className="skeleton skeleton-text w-36 h-5 mb-8" />
+        <SkeletonProductDetail />
       </div>
     );
   }
@@ -180,7 +182,7 @@ export const ProductPage = () => {
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               href="tel:+74911234567"
-              className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-primary-dark transition-all hover:scale-[1.02] shadow-md"
+              className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-primary-dark transition-all hover:scale-[1.02] shadow-md btn-press"
             >
               <Phone className="w-5 h-5" />
               Позвонить
@@ -189,7 +191,7 @@ export const ProductPage = () => {
               href={`https://wa.me/79001234567?text=${encodeURIComponent(`Здравствуйте! Интересует товар: ${product.name} (${Number(product.price).toFixed(0)} ₽)`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600 transition-all hover:scale-[1.02] shadow-md"
+              className="inline-flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600 transition-all hover:scale-[1.02] shadow-md btn-press"
             >
               <MessageCircle className="w-5 h-5" />
               WhatsApp

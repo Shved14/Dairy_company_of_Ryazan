@@ -10,6 +10,7 @@ import { adminApi } from '@/features/auth';
 import { useAuth } from '@/shared/hooks/useAuth';
 import { useDebounce } from '@/shared/hooks/useDebounce';
 import type { Product } from '@/shared/types';
+import { SkeletonTableRow } from '@/shared/ui/Skeleton';
 
 const CATEGORIES = ['Все', 'Молоко', 'Кефир', 'Сметана', 'Творог', 'Масло', 'Сыр', 'Йогурт'];
 
@@ -250,8 +251,28 @@ export const AdminPage = () => {
 
       {/* ===== Table ===== */}
       {loading ? (
-        <div className="flex justify-center py-24">
-          <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[700px]">
+              <thead className="bg-gray-50/80 border-b border-gray-100">
+                <tr>
+                  <th className="text-left px-5 py-3.5 text-xs font-semibold text-gray-500 uppercase w-12">ID</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-semibold text-gray-500 uppercase">Фото</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-semibold text-gray-500 uppercase">Название</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-semibold text-gray-500 uppercase">Категория</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-semibold text-gray-500 uppercase">Цена</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-semibold text-gray-500 uppercase">Жирн.</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-semibold text-gray-500 uppercase">Вес</th>
+                  <th className="text-right px-5 py-3.5 text-xs font-semibold text-gray-500 uppercase w-28">Действия</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-50">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <SkeletonTableRow key={i} />
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       ) : (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
