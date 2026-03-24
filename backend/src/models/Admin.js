@@ -26,6 +26,11 @@ const Admin = sequelize.define('Admin', {
       notEmpty: { msg: 'Пароль не может быть пустым' },
     },
   },
+  role: {
+    type: DataTypes.ENUM('SUPER_ADMIN', 'ADMIN'),
+    allowNull: false,
+    defaultValue: 'ADMIN',
+  },
 }, {
   tableName: 'admins',
   hooks: {

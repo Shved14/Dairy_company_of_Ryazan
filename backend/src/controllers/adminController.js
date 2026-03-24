@@ -20,6 +20,24 @@ class AdminController {
       next(err);
     }
   }
+
+  async getAll(req, res, next) {
+    try {
+      const admins = await adminService.getAll();
+      res.json(admins);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async delete(req, res, next) {
+    try {
+      const result = await adminService.delete(req.params.id, req.admin.id);
+      res.json(result);
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = new AdminController();

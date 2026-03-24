@@ -1,7 +1,20 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+
+import type { AdminRole } from '@/features/auth/api/adminApi';
 
 const TOKEN_KEY = 'token';
 const AUTH_EVENT = 'auth-updated';
+
+function parseJwtPayload(token: string | null): { id?: number; login?: string; role?: AdminRole } {
+  if (!token) return {};
+  try {
+    const base64 = token.split('.')[1];
+    if (!base64) return {};
+    return JSON.parse(atob(base64));
+  } catch {
+    return {};
+  }
+}
 
 export const useAuth = () => {
   const [token, setToken] = useState<string | null>(localStorage.getItem(TOKEN_KEY));
@@ -16,6 +29,8 @@ export const useAuth = () => {
     };
   }, []);
 
+  const payload = useMemo(() => parseJwtPayload(token), [token]);
+
   const login = useCallback((jwt: string) => {
     localStorage.setItem(TOKEN_KEY, jwt);
     setToken(jwt);
@@ -28,5 +43,14 @@ export const useAuth = () => {
     window.dispatchEvent(new CustomEvent(AUTH_EVENT));
   }, []);
 
-  return { token, isAuth: !!token, login, logout };
+  return {
+    token,
+    isAuth: !!token,
+    role: payload.role || null,
+    adminId: payload.id || null,
+    adminLogin: payload.login || null,
+    isSuperAdmin: payload.role === 'SUPER_ADMIN',
+    login,
+    logout,
+  };
 };

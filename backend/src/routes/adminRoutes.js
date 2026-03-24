@@ -2,6 +2,8 @@ const { Router } = require('express');
 const { body } = require('express-validator');
 const adminController = require('../controllers/adminController');
 const validate = require('../middleware/validate');
+const auth = require('../middleware/auth');
+const requireRole = require('../middleware/requireRole');
 
 const router = Router();
 
@@ -16,6 +18,9 @@ const authValidation = [
 ];
 
 router.post('/login', validate(authValidation), adminController.login);
-router.post('/create', validate(authValidation), adminController.create);
+
+router.get('/users', auth, adminController.getAll);
+router.post('/users', auth, requireRole('SUPER_ADMIN'), validate(authValidation), adminController.create);
+router.delete('/users/:id', auth, requireRole('SUPER_ADMIN'), adminController.delete);
 
 module.exports = router;
