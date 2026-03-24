@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
-import { LogIn, Plus, Pencil, Trash2, X } from 'lucide-react';
-import { adminApi } from '@/features/auth';
+import { useNavigate } from 'react-router-dom';
+import { Plus, Pencil, Trash2, X, LogOut } from 'lucide-react';
 import { productApi } from '@/entities/product';
+import { useAuth } from '@/shared/hooks/useAuth';
 import type { Product } from '@/shared/types';
 
 interface ProductForm {
@@ -25,10 +26,8 @@ const emptyForm: ProductForm = {
 };
 
 export const AdminPage = () => {
-  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
-  const [authError, setAuthError] = useState('');
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
@@ -51,24 +50,12 @@ export const AdminPage = () => {
   }, []);
 
   useEffect(() => {
-    if (token) fetchProducts();
-  }, [token, fetchProducts]);
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setAuthError('');
-    try {
-      const data = await adminApi.login(login, password);
-      localStorage.setItem('token', data.token);
-      setToken(data.token);
-    } catch {
-      setAuthError('Неверный логин или пароль');
-    }
-  };
+    fetchProducts();
+  }, [fetchProducts]);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    setToken(null);
+    logout();
+    navigate('/');
   };
 
   const openCreate = () => {
@@ -134,54 +121,6 @@ export const AdminPage = () => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
-  if (!token) {
-    return (
-      <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-              <LogIn className="w-5 h-5 text-primary" />
-            </div>
-            <h1 className="text-2xl font-bold">Вход в панель</h1>
-          </div>
-
-          {authError && (
-            <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm">{authError}</div>
-          )}
-
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Логин</label>
-              <input
-                type="text"
-                value={login}
-                onChange={(e) => setLogin(e.target.value)}
-                required
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Пароль</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-primary text-white py-2.5 rounded-lg font-semibold hover:bg-primary-dark transition-colors"
-            >
-              Войти
-            </button>
-          </form>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex items-center justify-between mb-8">
@@ -196,8 +135,9 @@ export const AdminPage = () => {
           </button>
           <button
             onClick={handleLogout}
-            className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
           >
+            <LogOut className="w-4 h-4" />
             Выйти
           </button>
         </div>

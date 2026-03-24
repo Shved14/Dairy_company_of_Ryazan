@@ -1,7 +1,13 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Milk, Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { Milk, Phone, Mail, MapPin, Clock, Shield } from 'lucide-react';
+import { AuthModal } from '@/features/auth';
+import { useAuth } from '@/shared/hooks/useAuth';
 
 export const Footer = () => {
+  const [showAuth, setShowAuth] = useState(false);
+  const { isAuth } = useAuth();
+
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -26,7 +32,20 @@ export const Footer = () => {
                 <Link to="/catalog" className="hover:text-white hover:pl-1 transition-all">Каталог</Link>
               </li>
               <li>
-                <Link to="/admin" className="hover:text-white hover:pl-1 transition-all">Админ-панель</Link>
+                {isAuth ? (
+                  <Link to="/admin" className="inline-flex items-center gap-1.5 hover:text-white hover:pl-1 transition-all">
+                    <Shield className="w-3.5 h-3.5" />
+                    Админ-панель
+                  </Link>
+                ) : (
+                  <button
+                    onClick={() => setShowAuth(true)}
+                    className="inline-flex items-center gap-1.5 hover:text-white hover:pl-1 transition-all"
+                  >
+                    <Shield className="w-3.5 h-3.5" />
+                    Админ
+                  </button>
+                )}
               </li>
             </ul>
           </div>
@@ -75,6 +94,7 @@ export const Footer = () => {
           <span>Сделано с заботой о качестве</span>
         </div>
       </div>
+      <AuthModal open={showAuth} onClose={() => setShowAuth(false)} />
     </footer>
   );
 };
