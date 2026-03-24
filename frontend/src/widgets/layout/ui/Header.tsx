@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Menu, X, Milk } from 'lucide-react';
+import { Menu, X, Milk, Phone } from 'lucide-react';
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +9,7 @@ export const Header = () => {
     `transition-colors font-medium ${isActive ? 'text-primary' : 'text-gray-700 hover:text-primary'}`;
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2 text-primary font-bold text-xl">
@@ -27,6 +27,13 @@ export const Header = () => {
             <NavLink to="/admin" className={linkClass}>
               Админ
             </NavLink>
+            <a
+              href="tel:+74911234567"
+              className="inline-flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-primary-dark transition-colors"
+            >
+              <Phone className="w-4 h-4" />
+              +7 (491) 123-45-67
+            </a>
           </nav>
 
           <button
@@ -48,6 +55,13 @@ export const Header = () => {
             <NavLink to="/admin" className={linkClass} onClick={() => setIsOpen(false)}>
               Админ
             </NavLink>
+            <a
+              href="tel:+74911234567"
+              className="inline-flex items-center gap-2 text-primary font-medium"
+            >
+              <Phone className="w-4 h-4" />
+              +7 (491) 123-45-67
+            </a>
           </nav>
         )}
       </div>

@@ -1,40 +1,78 @@
-import { Milk } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Milk, Phone, Mail, MapPin, Clock } from 'lucide-react';
 
 export const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <div className="flex items-center gap-2 text-white font-bold text-lg mb-4">
-              <Milk className="w-6 h-6" />
-              <span>Молочная компания Рязани</span>
-            </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="lg:col-span-1">
+            <Link to="/" className="flex items-center gap-2 text-white font-bold text-xl mb-4">
+              <Milk className="w-7 h-7 text-primary" />
+              <span>Молочная компания</span>
+            </Link>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Натуральная молочная продукция из Рязани. Качество, проверенное временем.
+              Натуральная молочная продукция из Рязани. Свежесть и качество каждый день с 2009 года.
             </p>
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4">Навигация</h3>
-            <ul className="space-y-2 text-sm">
-              <li><a href="/" className="hover:text-white transition-colors">Главная</a></li>
-              <li><a href="/catalog" className="hover:text-white transition-colors">Каталог</a></li>
+            <h3 className="text-white font-semibold mb-5 text-sm uppercase tracking-wider">Навигация</h3>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link to="/" className="hover:text-white hover:pl-1 transition-all">Главная</Link>
+              </li>
+              <li>
+                <Link to="/catalog" className="hover:text-white hover:pl-1 transition-all">Каталог</Link>
+              </li>
+              <li>
+                <Link to="/admin" className="hover:text-white hover:pl-1 transition-all">Админ-панель</Link>
+              </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4">Контакты</h3>
-            <ul className="space-y-2 text-sm">
-              <li>г. Рязань, ул. Молочная, 1</li>
-              <li>+7 (491) 123-45-67</li>
-              <li>info@dairy-ryazan.ru</li>
+            <h3 className="text-white font-semibold mb-5 text-sm uppercase tracking-wider">Контакты</h3>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <a href="tel:+74911234567" className="inline-flex items-center gap-2 hover:text-white transition-colors">
+                  <Phone className="w-4 h-4 text-primary" />
+                  +7 (491) 123-45-67
+                </a>
+              </li>
+              <li>
+                <a href="tel:+79001234567" className="inline-flex items-center gap-2 hover:text-white transition-colors">
+                  <Phone className="w-4 h-4 text-primary" />
+                  +7 (900) 123-45-67
+                </a>
+              </li>
+              <li>
+                <a href="mailto:info@dairy-ryazan.ru" className="inline-flex items-center gap-2 hover:text-white transition-colors">
+                  <Mail className="w-4 h-4 text-primary" />
+                  info@dairy-ryazan.ru
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-white font-semibold mb-5 text-sm uppercase tracking-wider">Адрес</h3>
+            <ul className="space-y-3 text-sm">
+              <li className="inline-flex items-start gap-2">
+                <MapPin className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                <span>г. Рязань, ул. Молочная, д. 1</span>
+              </li>
+              <li className="inline-flex items-start gap-2">
+                <Clock className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                <span>Пн–Сб: 8:00–20:00<br />Вс: 9:00–18:00</span>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-500">
-          &copy; {new Date().getFullYear()} Молочная компания Рязани. Все права защищены.
+        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+          <span>&copy; {new Date().getFullYear()} Молочная компания Рязани. Все права защищены.</span>
+          <span>Сделано с заботой о качестве</span>
         </div>
       </div>
     </footer>
