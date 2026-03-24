@@ -1,0 +1,56 @@
+import { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { Menu, X, Milk } from 'lucide-react';
+
+export const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const linkClass = ({ isActive }: { isActive: boolean }) =>
+    `transition-colors font-medium ${isActive ? 'text-primary' : 'text-gray-700 hover:text-primary'}`;
+
+  return (
+    <header className="bg-white shadow-sm sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <Link to="/" className="flex items-center gap-2 text-primary font-bold text-xl">
+            <Milk className="w-7 h-7" />
+            <span>Молочная компания</span>
+          </Link>
+
+          <nav className="hidden md:flex items-center gap-8">
+            <NavLink to="/" className={linkClass} end>
+              Главная
+            </NavLink>
+            <NavLink to="/catalog" className={linkClass}>
+              Каталог
+            </NavLink>
+            <NavLink to="/admin" className={linkClass}>
+              Админ
+            </NavLink>
+          </nav>
+
+          <button
+            className="md:hidden p-2 text-gray-600 hover:text-primary"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+
+        {isOpen && (
+          <nav className="md:hidden pb-4 flex flex-col gap-3">
+            <NavLink to="/" className={linkClass} end onClick={() => setIsOpen(false)}>
+              Главная
+            </NavLink>
+            <NavLink to="/catalog" className={linkClass} onClick={() => setIsOpen(false)}>
+              Каталог
+            </NavLink>
+            <NavLink to="/admin" className={linkClass} onClick={() => setIsOpen(false)}>
+              Админ
+            </NavLink>
+          </nav>
+        )}
+      </div>
+    </header>
+  );
+};
