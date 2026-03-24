@@ -16,19 +16,8 @@ import {
 } from 'lucide-react';
 import { productApi } from '@/entities/product';
 import { useInView } from '@/shared/hooks/useInView';
+import { useFavorites } from '@/shared/hooks/useFavorites';
 import type { Product } from '@/shared/types';
-
-const getFavorites = (): number[] => {
-  try {
-    return JSON.parse(localStorage.getItem('favorites') || '[]');
-  } catch {
-    return [];
-  }
-};
-
-const saveFavorites = (favs: number[]) => {
-  localStorage.setItem('favorites', JSON.stringify(favs));
-};
 
 const Section = ({
   children,
@@ -53,7 +42,7 @@ export const ProductPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [related, setRelated] = useState<Product[]>([]);
-  const [favorites, setFavorites] = useState<number[]>(getFavorites);
+  const { toggle: toggleFavorite, has: hasFav } = useFavorites();
   const [zoomed, setZoomed] = useState(false);
   const [lensPos, setLensPos] = useState({ x: 50, y: 50 });
   const imgRef = useRef<HTMLDivElement>(null);
@@ -85,15 +74,10 @@ export const ProductPage = () => {
 
   const handleToggleFavorite = () => {
     if (!product) return;
-    const favs = getFavorites();
-    const next = favs.includes(product.id)
-      ? favs.filter((f) => f !== product.id)
-      : [...favs, product.id];
-    saveFavorites(next);
-    setFavorites(next);
+    toggleFavorite(product.id);
   };
 
-  const isFav = product ? favorites.includes(product.id) : false;
+  const isFav = product ? hasFav(product.id) : false;
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!imgRef.current) return;
@@ -213,8 +197,8 @@ export const ProductPage = () => {
             <button
               onClick={handleToggleFavorite}
               className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all hover:scale-[1.02] border-2 ${isFav
-                  ? 'bg-red-50 border-red-300 text-red-600'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-red-300 hover:text-red-500'
+                ? 'bg-red-50 border-red-300 text-red-600'
+                : 'bg-white border-gray-200 text-gray-700 hover:border-red-300 hover:text-red-500'
                 }`}
             >
               <Heart className={`w-5 h-5 ${isFav ? 'fill-current' : ''}`} />

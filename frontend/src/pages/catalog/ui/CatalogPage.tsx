@@ -13,21 +13,10 @@ import {
 import { productApi } from '@/entities/product';
 import { useDebounce } from '@/shared/hooks/useDebounce';
 import { useInView } from '@/shared/hooks/useInView';
+import { useFavorites } from '@/shared/hooks/useFavorites';
 import type { Product } from '@/shared/types';
 
 const CATEGORIES = ['Все', 'Молоко', 'Кефир', 'Сметана', 'Творог', 'Масло', 'Сыр', 'Йогурт'];
-
-const getFavorites = (): number[] => {
-  try {
-    return JSON.parse(localStorage.getItem('favorites') || '[]');
-  } catch {
-    return [];
-  }
-};
-
-const saveFavorites = (favs: number[]) => {
-  localStorage.setItem('favorites', JSON.stringify(favs));
-};
 
 const AnimatedCard = ({ children, index }: { children: React.ReactNode; index: number }) => {
   const { ref, isInView } = useInView({ threshold: 0.05 });
@@ -50,7 +39,7 @@ export const CatalogPage = () => {
   const [activeCategory, setActiveCategory] = useState(searchParams.get('category') || 'Все');
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
-  const [favorites, setFavorites] = useState<number[]>(getFavorites);
+  const { toggle: toggleFavorite, has: isFav } = useFavorites();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const debouncedSearch = useDebounce(search, 400);
@@ -92,13 +81,8 @@ export const CatalogPage = () => {
   const handleToggleFavorite = (e: React.MouseEvent, id: number) => {
     e.preventDefault();
     e.stopPropagation();
-    const favs = getFavorites();
-    const next = favs.includes(id) ? favs.filter((f) => f !== id) : [...favs, id];
-    saveFavorites(next);
-    setFavorites(next);
+    toggleFavorite(id);
   };
-
-  const isFav = (id: number) => favorites.includes(id);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
@@ -151,8 +135,8 @@ export const CatalogPage = () => {
                     key={cat}
                     onClick={() => handleCategoryChange(cat)}
                     className={`w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${activeCategory === cat
-                        ? 'bg-primary text-white shadow-sm'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      ? 'bg-primary text-white shadow-sm'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                       }`}
                   >
                     {cat}
@@ -212,8 +196,8 @@ export const CatalogPage = () => {
                     key={cat}
                     onClick={() => handleCategoryChange(cat)}
                     className={`w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${activeCategory === cat
-                        ? 'bg-primary text-white shadow-sm'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      ? 'bg-primary text-white shadow-sm'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                       }`}
                   >
                     {cat}
@@ -291,8 +275,8 @@ export const CatalogPage = () => {
                         <button
                           onClick={(e) => handleToggleFavorite(e, product.id)}
                           className={`absolute top-3 right-3 p-2.5 rounded-full shadow-md transition-all duration-300 ${isFav(product.id)
-                              ? 'bg-red-500 text-white scale-110'
-                              : 'bg-white/90 text-gray-500 opacity-0 group-hover:opacity-100 hover:bg-red-50 hover:text-red-500'
+                            ? 'bg-red-500 text-white scale-110'
+                            : 'bg-white/90 text-gray-500 opacity-0 group-hover:opacity-100 hover:bg-red-50 hover:text-red-500'
                             }`}
                         >
                           <Heart className={`w-4 h-4 ${isFav(product.id) ? 'fill-current' : ''}`} />
@@ -352,8 +336,8 @@ export const CatalogPage = () => {
                       key={p}
                       onClick={() => setPage(p)}
                       className={`w-10 h-10 rounded-xl text-sm font-semibold transition-all ${page === p
-                          ? 'bg-primary text-white shadow-md scale-105'
-                          : 'text-gray-600 hover:bg-gray-100'
+                        ? 'bg-primary text-white shadow-md scale-105'
+                        : 'text-gray-600 hover:bg-gray-100'
                         }`}
                     >
                       {p}

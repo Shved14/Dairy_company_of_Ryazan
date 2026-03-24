@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Menu, X, Milk, Phone } from 'lucide-react';
+import { FavoritesPopup } from '@/widgets/favorites';
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +18,7 @@ export const Header = () => {
             <span>Молочная компания</span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6">
             <NavLink to="/" className={linkClass} end>
               Главная
             </NavLink>
@@ -27,6 +28,7 @@ export const Header = () => {
             <NavLink to="/admin" className={linkClass}>
               Админ
             </NavLink>
+            <FavoritesPopup />
             <a
               href="tel:+74911234567"
               className="inline-flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-primary-dark transition-colors"
@@ -36,12 +38,15 @@ export const Header = () => {
             </a>
           </nav>
 
-          <button
-            className="md:hidden p-2 text-gray-600 hover:text-primary"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <FavoritesPopup />
+            <button
+              className="p-2 text-gray-600 hover:text-primary"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {isOpen && (
