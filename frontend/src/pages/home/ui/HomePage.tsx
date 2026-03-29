@@ -6,7 +6,6 @@ import {
   Mail,
   MapPin,
   Leaf,
-  Award,
   Truck,
   ShieldCheck,
   Clock,
@@ -14,6 +13,7 @@ import {
 } from 'lucide-react';
 import { productApi } from '@/entities/product';
 import { HowWeProduceSection } from './HowWeProduceSection';
+import { WhyChooseUsSection } from './WhyChooseUsSection';
 import { useInView } from '@/shared/hooks/useInView';
 import { useFavorites } from '@/shared/hooks/useFavorites';
 import type { Product } from '@/shared/types';
@@ -218,67 +218,7 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* ===== Почему выбирают нас ===== */}
-      <section className="py-14 sm:py-20 lg:py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Section>
-            <div className="text-center mb-10 sm:mb-14">
-              <span className="text-primary font-semibold text-sm uppercase tracking-widest">Преимущества</span>
-              <h2 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900">
-                Почему выбирают нас
-              </h2>
-              <p className="mt-3 text-gray-500 max-w-xl mx-auto text-sm sm:text-base">
-                Каждый продукт — результат заботы о качестве на каждом этапе
-              </p>
-            </div>
-          </Section>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 lg:gap-6">
-            {[
-              {
-                icon: <Leaf className="w-6 h-6" />,
-                color: 'bg-green-50 text-green-600 border-green-100',
-                title: 'Без консервантов',
-                desc: 'Никаких химических добавок — только чистый натуральный состав.',
-              },
-              {
-                icon: <Clock className="w-6 h-6" />,
-                color: 'bg-amber-50 text-amber-600 border-amber-100',
-                title: 'Свежая продукция',
-                desc: 'Производим каждый день и доставляем в течение 24 часов.',
-              },
-              {
-                icon: <Award className="w-6 h-6" />,
-                color: 'bg-blue-50 text-blue-600 border-blue-100',
-                title: 'Своё производство',
-                desc: 'Полный цикл — от фермы до упаковки под нашим контролем.',
-              },
-              {
-                icon: <Truck className="w-6 h-6" />,
-                color: 'bg-purple-50 text-purple-600 border-purple-100',
-                title: 'Быстрая доставка',
-                desc: 'Бесплатно по Рязани от 1 000 ₽. В день заказа.',
-              },
-              {
-                icon: <ShieldCheck className="w-6 h-6" />,
-                color: 'bg-rose-50 text-rose-600 border-rose-100',
-                title: 'Натуральные ингредиенты',
-                desc: 'Молоко от своих коров, без ГМО и порошковых заменителей.',
-              },
-            ].map((item, idx) => (
-              <Section key={idx} animation="animate-fade-in-up" className={`delay-${(idx + 1) * 100}`}>
-                <div className="group bg-white rounded-2xl p-6 border border-gray-100 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-gray-200 text-center">
-                  <div className={`w-12 h-12 ${item.color} border rounded-xl flex items-center justify-center mx-auto mb-4 transition-transform duration-300 group-hover:scale-110`}>
-                    {item.icon}
-                  </div>
-                  <h3 className="text-base font-bold text-gray-900 mb-1.5">{item.title}</h3>
-                  <p className="text-gray-500 leading-relaxed text-sm">{item.desc}</p>
-                </div>
-              </Section>
-            ))}
-          </div>
-        </div>
-      </section>
+      <WhyChooseUsSection />
 
       {/* ===== Популярные товары ===== */}
       <section className="py-12 sm:py-16 lg:py-28 bg-white">
@@ -424,6 +364,6 @@ export const HomePage = () => {
           </Section>
         </div>
       </section>
-    </div>
+    </div >
   );
 };
