@@ -6,6 +6,12 @@ interface GetProductsParams {
   category?: string;
   page?: number;
   limit?: number;
+  priceMin?: number;
+  priceMax?: number;
+  fatMin?: number;
+  fatMax?: number;
+  weight?: string;
+  sort?: string;
 }
 
 export const productApi = {

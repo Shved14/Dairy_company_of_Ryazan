@@ -3,8 +3,8 @@ const productService = require('../services/productService');
 class ProductController {
   async getAll(req, res, next) {
     try {
-      const { search, category, page, limit } = req.query;
-      const result = await productService.findAll({ search, category, page, limit });
+      const { search, category, page, limit, priceMin, priceMax, fatMin, fatMax, weight, sort } = req.query;
+      const result = await productService.findAll({ search, category, page, limit, priceMin, priceMax, fatMin, fatMax, weight, sort });
       res.json(result);
     } catch (err) {
       next(err);

@@ -150,6 +150,46 @@ body {
   background: linear-gradient(135deg, rgba(22, 163, 74, 0.85) 0%, rgba(5, 46, 22, 0.75) 100%);
 }
 
+/* Hero overlay — darker, cinematic */
+.hero-overlay {
+  background: linear-gradient(to right,
+      rgba(0, 0, 0, 0.72) 0%,
+      rgba(0, 0, 0, 0.45) 50%,
+      rgba(0, 0, 0, 0.15) 100%);
+}
+
+/* Slow zoom on hero bg */
+@keyframes heroZoom {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.08);
+  }
+}
+
+.hero-bg-zoom {
+  animation: heroZoom 20s ease-out forwards;
+}
+
+/* Pulsing glow on CTA */
+@keyframes pulseGlow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5);
+  }
+
+  50% {
+    box-shadow: 0 0 20px 6px rgba(22, 163, 74, 0.25);
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
 /* ===== Skeleton shimmer ===== */
 @keyframes shimmer {
   0% {
